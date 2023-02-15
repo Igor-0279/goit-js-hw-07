@@ -1,11 +1,25 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 console.log(galleryItems);
-// if (el.target.closest(".galery__link")) el.preventDefault();
+const gallery = document.querySelector(".gallery");
 
-  `<div class="modal">
-      <img class="modal__image" src="${el.target.dataset.source}">
-    </div>
-  `;
-  <img src="${el.target.dataset.source}" width="800" height="600"></img>
+function galeryMarckup(images) {
+  return images
+    .map(
+      ({ original, description, preview }) =>
+        `<a class="gallery__item" href="${original}">
+  <img class="gallery__image" src="${preview}" alt="${description}" />
+</a>`
+    )
+    .join("");
+}
+
+gallery.insertAdjacentHTML("afterbegin", galeryMarckup(galleryItems));
+
+const lightbox = new SimpleLightbox(".gallery a", {
+  captionSelector: "img",
+  captionsData: "alt",
+  captionPosition: "bottom",
+  captionDelay: 250,
+});
